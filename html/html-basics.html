@@ -10,13 +10,17 @@
     
     <title>Mirai1st Code Tutorial</title>
 </head>
-<body onload="sidebarOpen()">
+<body onload="sidebarOpen(); initialize();">
     <div class="sidebar" id="sidebar">
         <h3>Topic</h3>
         <ul>
             <a id="toggleBtn">
                 <i class="bi bi-x-lg"></i>
             </a>
+
+            <hr>
+
+            <li><a href="../index.html"><i class="bi bi-house-fill"></i>&nbsp Index</a></li>
 
             <li><a data-bs-toggle="collapse" data-bs-target="#web-collapse" class="d-flex align-items-center collapsed">
                 <i class="bi bi-caret-right-fill toggle-icon"></i>
@@ -39,11 +43,13 @@
             
             <div id="java-collapse" class="collapse padded-link">
                 <ul>
-                    <li><a href="html-basics.html">HTML Basics</a></li>
-                    <li><a href="css-basics.html">CSS Basics</a></li>
-                    <li><a href="javascript-basics.html">JavaScript Basics</a></li>
+                    <li><a>...</a></li>
                 </ul>
             </div>
+
+            <hr>
+            <a id="toggle-theme"><i class="bi bi-moon-stars-fill"></i>&nbsp Dark Mode (Beta)</a>
+            <a id="toggle-settings"><i class="bi bi-gear-fill"></i>&nbsp Site Settings</a>
         </ul>
     </div>
 
@@ -80,6 +86,29 @@
         <li><strong>&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</strong>: Unordered list, ordered list, and list item tags, respectively.</li>
         <li><strong>&lt;div&gt;</strong>: Division tag, used as a container for other HTML elements.</li>
         <li><strong>&lt;span&gt;</strong>: Inline container tag, used to group inline elements.</li>
+    </div>
+
+    <div class="settings-panel" id="settings-panel">
+        <h2>Site Settings</h2>
+        <hr>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="darkmode">
+            <label class="form-check-label" for="checkDefault">
+                Dark Mode
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="save-settings" checked>
+            <label class="form-check-label" for="checkDefault">
+                Save Website Settings
+            </label>
+        </div>
+        
+
+        <hr>
+        <p style="color: gray;"><i class="bi bi-info-circle-fill"></i>&nbsp Made by Mirai1st</p>
+        <button disabled onclick="closeSettings()" class="btn btn-secondary">Apply</button>
+        <button onclick="closeSettings()" class="btn btn-secondary">Close</button>
     </div>
 
     <script src="../script.js"></script>
