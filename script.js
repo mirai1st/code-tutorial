@@ -22,6 +22,9 @@ if (getCookie("darkmode") === "enabled") {
     document.body.classList.add("dark-mode");
     document.getElementById("toggleBtnOpen").classList.add("dark-mode");
     document.getElementById("settings-panel").classList.add("dark-mode");
+    document.getElementById("darkmode").checked = true;
+} else {
+    document.getElementById("darkmode").checked = false;
 }
 
 document.getElementById("toggle-theme").addEventListener("click", () => {
@@ -31,8 +34,10 @@ document.getElementById("toggle-theme").addEventListener("click", () => {
 
     if (isDark) {
         setCookie("darkmode", "enabled", 30);
+        document.getElementById("darkmode").checked = true;
     } else {
         setCookie("darkmode", "disabled", 30);
+        document.getElementById("darkmode").checked = false;
     }
 });
 
@@ -61,3 +66,32 @@ function getCookie(name) {
     }
     return null;
 }
+
+// Scroll Spy
+
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".link-section");
+
+const options = {
+  threshold: 0.6, // 60% section mesti nampak baru dianggap active
+};
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    const id = entry.target.getAttribute("id");
+
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === `#${id}`) {
+          link.classList.add("active");
+        }
+      });
+    }
+  });
+}, options);
+
+sections.forEach(section => {
+  observer.observe(section);
+});

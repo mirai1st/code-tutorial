@@ -30,8 +30,14 @@
             <div id="web-collapse" class="collapse padded-link">
                 <ul>
                     <li><a style="color: white;" class="link-header">HTML</a></li>
-                    <li><a href="html-basics.html"><i class="bi bi-arrow-return-right"></i> HTML Basics</a></li>
+                    <li><a href="#what-is-html" class="link-section">Apakah HTML?</a></li>
+                    <li><a href="#tag-explaination" class="link-section">Tag</a></li>
+                    <li><a href="#what-is-div?" class="link-section">Apakah div?</a></li>
+
+                    <li><a style="color: white;" class="link-header">CSS</a></li>
                     <li><a href="css-basics.html">CSS Basics</a></li>
+
+                    <li><a style="color: white;" class="link-header">JavaScript</a></li>
                     <li><a href="javascript-basics.html">JavaScript Basics</a></li>
                 </ul>
             </div>
@@ -58,57 +64,81 @@
             <i class="bi bi-list"></i>
         </a>
         <hr>
-        <h1>HTML Basics</h1>
-        <p>HTML (HyperText Markup Language) is the standard language used to create and design webpages. It provides the basic structure of a webpage, which can be enhanced and modified using CSS (Cascading Style Sheets) and JavaScript.</p>
+        <section id="what-is-html">
+            <h3 id="what-is-html">What is HTML</h3>
+            <p>HTML (HyperText Markup Language) bahasa yang digunakan untuk membuat website. Ia memberikan struktur asas untuk sesebuah website, yang boleh dipertingkatkan dan diubah suai menggunakan CSS (Cascading Style Sheets) dan JavaScript.</p>
 
-        <h2>Basic Structure of an HTML Document</h2>
-        <pre>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Page Title&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;This is a Heading&lt;/h1&gt;
-    &lt;p&gt;This is a paragraph.&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
+            <h3>HTML Example</h3>
+            <pre>&lt;!DOCTYPE html&gt;
+    &lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+        &lt;title&gt;Page Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;This is a Heading&lt;/h1&gt;
+        &lt;p&gt;This is a paragraph.&lt;/p&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</pre>
+        </section>
 
-    <hr>
-    <!-- HTML Tags -->
-    <h2>Common HTML Tags</h2>
-    <ul>
-        <li><strong>&lt;h1&gt; to &lt;h6&gt;</strong>: Heading tags, where &lt;h1&gt; is the highest level and &lt;h6&gt; is the lowest.</li>
-        <li><strong>&lt;p&gt;</strong>: Paragraph tag, used to define a block of text.</li>
-        <li><strong>&lt;a&gt;</strong>: Anchor tag, used to create hyperlinks. Example: &lt;a href="https://www.example.com"&gt;Visit Example&lt;/a&gt;.</li>
-        <li><strong>&lt;img&gt;</strong>: Image tag, used to embed images. Example: &lt;img src="image.jpg" alt="Description"&gt;.</li>
-        <li><strong>&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</strong>: Unordered list, ordered list, and list item tags, respectively.</li>
-        <li><strong>&lt;div&gt;</strong>: Division tag, used as a container for other HTML elements.</li>
-        <li><strong>&lt;span&gt;</strong>: Inline container tag, used to group inline elements.</li>
-    </div>
-
-    <div class="settings-panel" id="settings-panel">
-        <h2>Site Settings</h2>
         <hr>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="darkmode">
-            <label class="form-check-label" for="checkDefault">
-                Dark Mode
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="save-settings" checked>
-            <label class="form-check-label" for="checkDefault">
-                Save Website Settings
-            </label>
-        </div>
+        <section id="tag-explaination">
+            <h3>HTML Tags Explanation</h3>
+            <p>HTML terdiri daripada pelbagai "tag" yang digunakan untuk menentukan elemen-elemen berbeza pada halaman web. Setiap tag biasanya mempunyai pasangan pembuka dan penutup, contohnya &lt;tagname&gt;...&lt;/tagname&gt;.</p>
+            <img class="content-image" src="/images/html-tag-explaination.png">
+            <p class="reference"># Sumber Imej: https://www.computerhope.com/jargon/h/html-a-tag.htm</p>
+            <p>Setiap tag boleh diisi atribut tertentu. Seperti 'href', 'style', 'class', 'id' dan lain-lain.  Berikut adalah beberapa tag asas dalam HTML:</p>
+
+            <ul>
+                <li><strong>&lt;!DOCTYPE html&gt;</strong>: Menyatakan versi HTML yang digunakan.</li>
+                <li><strong>&lt;html&gt;</strong>: Tag akar yang membungkus keseluruhan dokumen HTML.</li>
+                <li><strong>&lt;head&gt;</strong>: Mengandungi maklumat meta tentang dokumen, seperti tajuk, pautan ke fail CSS, dan skrip JavaScript.</li>
+                <li><strong>&lt;body&gt;</strong>: Mengandungi kandungan utama halaman web yang dipaparkan kepada pengguna.</li>
+                <li><strong>&lt;h1&gt; hingga &lt;h6&gt;</strong>: Tag tajuk, di mana &lt;h1&gt; adalah tahap tertinggi dan &lt;h6&gt; adalah tahap terendah.</li>
+                <li><strong>&lt;p&gt;</strong>: Tag perenggan, digunakan untuk menentukan blok teks.</li>
+                <li><strong>&lt;a&gt;</strong>: Tag pautan, digunakan untuk mencipta hiperpautan.</li>
+                <li><strong>&lt;img&gt;</strong>: Tag imej, digunakan untuk menyematkan imej.</li>
+                <li><strong>&lt;div&gt;</strong>: Tag pembahagian, digunakan sebagai kontena untuk elemen HTML lain.</li>
+                <li><strong>&lt;span&gt;</strong>: Tag kontena sebaris, digunakan untuk mengelompokkan elemen sebaris.</li>
+            </ul>
+        </section>
+
+        <hr>
+        <section id="what-is-div?">
+            <h3>What is &lt;div&gt;?</h3>
+            <p>Tag &lt;div&gt; adalah elemen blok yang digunakan untuk mengelompokkan elemen-elemen HTML lain bersama-sama. Ia tidak mempunyai makna semantik tersendiri, tetapi sangat berguna untuk tujuan penggayaan (styling) dan susun atur (layout) menggunakan CSS.</p>
+            <p>Contoh penggunaan &lt;div&gt;:</p>
+            <pre>&lt;div class="container"&gt;</pre>
+            <img class="content-image" src="/images/box-model-diagram.gif" alt="">
+            <p class="reference"># Sumber Imej: https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model</p>
+        </section>
         
+        <div class="settings-panel" id="settings-panel">
+            <h2>Site Settings</h2>
+            <hr>
+            <form>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="darkmode">
+                    <label class="form-check-label" for="checkDefault">
+                        Dark Mode
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="save-settings" checked>
+                    <label class="form-check-label" for="checkDefault">
+                        Save Website Settings
+                    </label>
+                </div>
+                
 
-        <hr>
-        <p style="color: gray;"><i class="bi bi-info-circle-fill"></i>&nbsp Made by Mirai1st</p>
-        <button disabled onclick="closeSettings()" class="btn btn-secondary">Apply</button>
-        <button onclick="closeSettings()" class="btn btn-secondary">Close</button>
+                <hr>
+                <p style="color: gray;"><i class="bi bi-info-circle-fill"></i>&nbsp This website uses cookies to store data, if you allow such behavior,<br> do enable the "Save Website Settings" <br><i class="bi bi-info-circle-fill"></i>&nbsp Made by Mirai1st</p>
+                <button disabled onclick="saveSettings()" class="btn btn-secondary">Apply</button>
+                <button onclick="closeSettings()" class="btn btn-secondary">Close</button>
+            </form>
+        </div>
     </div>
 
     <script src="../script.js"></script>

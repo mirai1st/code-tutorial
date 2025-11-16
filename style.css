@@ -68,6 +68,16 @@
     transition: transform 0.2s ease;
 }
 
+.link-section.active {
+  color: rgb(255, 255, 255);
+}
+
+.link-section.active::before {
+  content: "\F132   ";
+  font-family: "bootstrap-icons";
+  color: rgb(255, 255, 255);
+}
+
 /* bila collapse dibuka (tiada class .collapsed) → rotate icon */
 a:not(.collapsed) .toggle-icon {
     transform: rotate(90deg);
@@ -93,6 +103,16 @@ pre {
     font-family: "Fira Code", monospace;
 }
 
+.content img {
+    border-radius: 10px;
+    border: solid 1px;
+}
+
+.content .reference {
+    color: rgb(106, 106, 106);
+    font-style: italic;
+}
+
 /* Dark Mode CSS */
 
 body.dark-mode {
@@ -104,6 +124,16 @@ body.dark-mode pre {
 }
 #toggleBtnOpen.dark-mode {
     color: #ffffff;
+}
+
+.content-image {
+    width:max-content;
+}
+
+@media screen and (max-width: 800px) {
+    .content-image {
+        width: 100%;
+    }
 }
 
 /* Site Settings */
