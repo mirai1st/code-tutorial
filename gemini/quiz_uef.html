@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuiz UEF (Bab 1 - 5)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+        .question-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .question-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #000;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        .options label:hover {
+            background-color: #e6f7ff;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #50e3c2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+        }
+        button:hover {
+            background-color: #3ec4a3;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            display: none; /* Sembunyikan hasil pada mulanya */
+        }
+        .pass { background-color: #d4edda; color: #155724; }
+        .fail { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Kuiz UEF: Bab 1 - 5 (30 Soalan)</h1>
+    <form id="quizForm">
+        </form>
+    <button type="button" onclick="submitQuiz()">Semak Jawapan</button>
+
+    <div id="resultContainer" class="result">
+        </div>
+</div>
+
+<script>
+    // Struktur data soalan
+    const questions = [
+        // BAB 1: HCI, Gaya Antaramuka, Ergonomik
+        {
+            topic: "Bab 1: HCI",
+            question: "Apakah matlamat utama 'Human-Computer Interaction' (HCI)?",
+            options: ["Mencipta peranti yang paling mahal.", "Meningkatkan kebolehgunaan, kecekapan, dan kepuasan pengguna.", "Menggantikan manusia dengan robot.", "Membangunkan perisian tanpa memerlukan input pengguna."],
+            answer: "Meningkatkan kebolehgunaan, kecekapan, dan kepuasan pengguna."
+        },
+        {
+            topic: "Bab 1: HCI",
+            question: "Antara berikut, yang manakah *bukan* merupakan komponen utama dalam HCI?",
+            options: ["Manusia (Pengguna)", "Komputer/Sistem", "Proses Interaksi", "Kabel Rangkaian (Network Cable)"],
+            answer: "Kabel Rangkaian (Network Cable)"
+        },
+        {
+            topic: "Bab 1: Gaya Antaramuka",
+            question: "Antaramuka yang paling sesuai untuk pengguna pakar kerana kecekapannya yang tinggi dan penggunaan teks adalah...",
+            options: ["WIMP (GUI)", "Natural Language Interface (NLI)", "Command Line Interface (CLI)", "Menu-Based Interface"],
+            answer: "Command Line Interface (CLI)"
+        },
+        {
+            topic: "Bab 1: Gaya Antaramuka",
+            question: "WIMP adalah singkatan untuk Windows, Icons, Menus, dan...",
+            options: ["Pointer", "Protocols", "Programs", "Processor"],
+            answer: "Pointer"
+        },
+        {
+            topic: "Bab 1: Ergonomik",
+            question: "Ergonomik **Kognitif** dalam UI merujuk kepada...",
+            options: ["Saiz butang dan jarak sentuhan.", "Penggunaan warna dan kontras yang betul.", "Bagaimana maklumat dipaparkan untuk mengurangkan beban mental.", "Postur pengguna ketika menggunakan peranti."],
+            answer: "Bagaimana maklumat dipaparkan untuk mengurangkan beban mental."
+        },
+        {
+            topic: "Bab 1: Model Interaksi",
+            question: "Dalam Kitaran Pelaksanaan-Penilaian Norman, apakah fasa yang berlaku *selepas* pengguna melaksanakan tindakan?",
+            options: ["Membentuk Matlamat", "Penilaian (Evaluation)", "Perolehan Keperluan", "Prototaip"],
+            answer: "Penilaian (Evaluation)"
+        },
+        // BAB 2: Prinsip UI/UX, Design Rules
+        {
+            topic: "Bab 2: Prinsip",
+            question: "Sistem yang mempunyai keupayaan untuk menyokong pelbagai cara untuk melakukan tugas (cth: pintasan papan kekunci dan klik tetikus) mematuhi prinsip kebolehgunaan yang dipanggil...",
+            options: ["Learnability", "Robustness", "Flexibility", "Consistency"],
+            answer: "Flexibility"
+        },
+        {
+            topic: "Bab 2: Prinsip",
+            question: "Proses reka bentuk yang sentiasa melibatkan kitaran 'Reka → Uji → Perbaiki → Ulang' dipanggil:",
+            options: ["Waterfall Model", "Iterative Design Approach", "Bottom-Up Design", "Linear Design"],
+            answer: "Iterative Design Approach"
+        },
+        {
+            topic: "Bab 2: Peraturan Emas",
+            question: "Memberi peluang kepada pengguna yang berpengalaman untuk melakukan tugas dengan lebih pantas (cth: Ctrl + S untuk Simpan) adalah selaras dengan Peraturan Emas Schneiderman yang mana?",
+            options: ["Strive for Consistency", "Enable Frequent Users to Use Shortcuts", "Offer Informative Feedback", "Design Dialogs to Yield Closure"],
+            answer: "Enable Frequent Users to Use Shortcuts"
+        },
+        {
+            topic: "Bab 2: Peraturan Emas",
+            question: "Butang 'Hantar' yang berubah warna selepas diklik atau bar kemajuan yang menunjukkan peratusan selesai adalah contoh kepada peraturan:",
+            options: ["Tolerance for Error", "Offer Informative Feedback", "Internal Locus of Control", "Aesthetic and Minimalist Design"],
+            answer: "Offer Informative Feedback"
+        },
+        {
+            topic: "Bab 2: Peraturan Emas",
+            question: "Peraturan 'Design Dialogs to Yield Closure' bermaksud setiap proses mestilah mempunyai...",
+            options: ["Animasi yang menarik", "Butang 'Help' yang besar", "Permulaan, pertengahan, dan akhir yang jelas", "Log masuk biometrik sahaja"],
+            answer: "Permulaan, pertengahan, dan akhir yang jelas"
+        },
+        {
+            topic: "Bab 2: Design Rationale",
+            question: "Apakah tujuan 'Design Rationale'?",
+            options: ["Mencipta iklan pemasaran", "Mendokumentasikan sebab keputusan reka bentuk dibuat", "Mengukur kepuasan pengguna", "Menulis kod program utama"],
+            answer: "Mendokumentasikan sebab keputusan reka bentuk dibuat"
+        },
+        // BAB 3: UCD, Prototaip
+        {
+            topic: "Bab 3: UCD",
+            question: "Apakah yang menjadi fokus utama dalam 'User-Centered Design' (UCD)?",
+            options: ["Kos pembangunan yang paling rendah.", "Keperluan, matlamat, dan batasan pengguna akhir.", "Kelajuan pemprosesan komputer.", "Estetika dan warna semata-mata."],
+            answer: "Keperluan, matlamat, dan batasan pengguna akhir."
+        },
+        {
+            topic: "Bab 3: UCD",
+            question: "Memberi maklum balas segera, membimbing pengguna, dan menjadikan pengalaman menyeronokkan adalah fungsi utama kepada:",
+            options: ["Content Strategy", "Macro Interactions", "Micro Interactions", "Wireframing"],
+            answer: "Micro Interactions"
+        },
+        {
+            topic: "Bab 3: Prototaip",
+            question: "Alat visualisasi reka bentuk yang fokus pada **struktur dan susun atur** sahaja, tanpa warna dan imej sebenar, dipanggil:",
+            options: ["Mockup", "Wireframe", "Prototype", "Codebase"],
+            answer: "Wireframe"
+        },
+        {
+            topic: "Bab 3: Prototaip",
+            question: "Yang manakah adalah model **interaktif** yang mensimulasikan aliran pengguna dan fungsi sistem?",
+            options: ["Wireframe", "Paper Sketch", "Mockup", "Prototype"],
+            answer: "Prototype"
+        },
+        {
+            topic: "Bab 3: Prototaip",
+            question: "Prototaip Kesetiaan Rendah (*Low-Fidelity*) selalunya digunakan pada peringkat awal reka bentuk kerana...",
+            options: ["Ia memerlukan kod yang kompleks.", "Ia cepat dan murah untuk diubah suai.", "Ia adalah versi akhir produk.", "Ia hanya berfungsi pada peranti mudah alih."],
+            answer: "Ia cepat dan murah untuk diubah suai."
+        },
+        {
+            topic: "Bab 3: UCD",
+            question: "Pasukan yang melibatkan pereka, pemaju, dan penyelidik bersama-sama adalah contoh kepada ciri UCD:",
+            options: ["Empirical Measurement", "Multidisciplinary Team", "Focus on Technology", "Low Fidelity Design"],
+            answer: "Multidisciplinary Team"
+        },
+        // BAB 4: Penilaian Kebolehgunaan
+        {
+            topic: "Bab 4: Penilaian",
+            question: "Apakah tujuan utama Penilaian Kebolehgunaan (*Usability Evaluation*)?",
+            options: ["Mengira bajet pemasaran.", "Mengukur keberkesanan, kecekapan, dan kepuasan pengguna.", "Memilih warna logo yang sesuai.", "Membuat keputusan mengenai pengurusan projek."],
+            answer: "Mengukur keberkesanan, kecekapan, dan kepuasan pengguna."
+        },
+        {
+            topic: "Bab 4: Penilaian Pakar",
+            question: "Teknik penilaian di mana pakar UX menyemak antaramuka berbanding satu set prinsip kebolehgunaan yang telah ditetapkan (cth: 10 Heuristik Nielsen) dipanggil:",
+            options: ["Usability Testing", "Cognitive Walkthrough", "Heuristic Evaluation", "A/B Testing"],
+            answer: "Heuristic Evaluation"
+        },
+        {
+            topic: "Bab 4: Penilaian Pakar",
+            question: "Teknik 'Cognitive Walkthrough' fokus kepada penilaian:",
+            options: ["Kelajuan pemprosesan sistem.", "Kos pembangunan.", "Kemudahan pembelajaran untuk pengguna kali pertama.", "Kekuatan keselamatan siber."],
+            answer: "Kemudahan pembelajaran untuk pengguna kali pertama."
+        },
+        {
+            topic: "Bab 4: Penilaian Pengguna",
+            question: "Kaedah penilaian di mana pengguna sebenar disoal melalui tinjauan atau temu bual untuk mendapatkan maklum balas subjektif dipanggil:",
+            options: ["Observation", "Query", "Lab Study", "Expert Review"],
+            answer: "Query"
+        },
+        {
+            topic: "Bab 4: Piawaian",
+            question: "Piawaian **WCAG** (Web Content Accessibility Guidelines) menetapkan garis panduan untuk:",
+            options: ["Harga pembangunan perisian.", "Kebolehcapaian web untuk semua pengguna, terutamanya OKU.", "Saiz fizikal monitor.", "Pengurusan projek pembangunan web."],
+            answer: "Kebolehcapaian web untuk semua pengguna, terutamanya OKU."
+        },
+        {
+            topic: "Bab 4: Piawaian",
+            question: "Salah satu prinsip WCAG ialah **'Perceivable'** yang bermaksud maklumat mestilah:",
+            options: ["Murah untuk dihasilkan.", "Dapat dirasakan (cth: melalui teks alt, kapsyen).", "Sangat canggih.", "Menggunakan teknologi terkini."],
+            answer: "Dapat dirasakan (cth: melalui teks alt, kapsyen)."
+        },
+        // BAB 5: Universal Design & Emerging Tech
+        {
+            topic: "Bab 5: Universal Design",
+            question: "Apakah fokus utama 'Universal Design'?",
+            options: ["Mencipta reka bentuk untuk pasaran Eropah.", "Memastikan produk boleh digunakan oleh julat pengguna yang paling luas.", "Menggunakan bahan binaan yang unik.", "Menghadkan fungsi untuk pengguna tertentu."],
+            answer: "Memastikan produk boleh digunakan oleh julat pengguna yang paling luas."
+        },
+        {
+            topic: "Bab 5: Universal Design",
+            question: "Prinsip Universal Design **'Tolerance for Error'** menekankan pentingnya:",
+            options: ["Penggunaan warna yang minimum.", "Ciri seperti butang 'Undo' dan dialog pengesahan (*confirmation pop-up*).", "Menggunakan bahasa yang teknikal.", "Menghapuskan semua butang."],
+            answer: "Ciri seperti butang 'Undo' dan dialog pengesahan (*confirmation pop-up*)."
+        },
+        {
+            topic: "Bab 5: Kebolehcapaian",
+            question: "Ciri seperti **'Screen Reader'** adalah penting dalam reka bentuk antaramuka untuk membantu pengguna yang mengalami:",
+            options: ["Kekurangan masa.", "Cacat penglihatan.", "Masalah rangkaian.", "Kekurangan memori komputer."],
+            answer: "Cacat penglihatan."
+        },
+        {
+            topic: "Bab 5: Teknologi Baru",
+            question: "Interaksi utama dalam peranti **Wearable Computing** (cth: jam pintar) kebanyakannya adalah melalui:",
+            options: ["Keyboard dan Mouse", "Gerak Isyarat (*Gesture*), Suara, dan Sensor", "Command Line Interface (CLI)", "Pencetak 3D"],
+            answer: "Gerak Isyarat (*Gesture*), Suara, dan Sensor"
+        },
+        {
+            topic: "Bab 5: Teknologi Baru",
+            question: "Antara berikut, yang manakah merupakan salah satu kaedah pengecaman input (*Input Recognition Method*) baru?",
+            options: ["Diskette Drive", "Floppy Disk", "Gesture (Gerak Isyarat)", "Monitor CRT"],
+            answer: "Gesture (Gerak Isyarat)"
+        },
+        {
+            topic: "Bab 5: Teknologi Baru",
+            question: "Kesan teknologi baru muncul (cth: AR/VR, AI) terhadap UI/UX adalah mendorong interaksi yang lebih...",
+            options: ["Bosan dan kaku.", "Natural dan intuitif.", "Statik dan berpusatkan teks.", "Sukar untuk dipelajari."],
+            answer: "Natural dan intuitif."
+        }
+    ];
+
+    // Fungsi untuk menjana kuiz dalam HTML
+    function generateQuiz() {
+        const form = document.getElementById('quizForm');
+        let htmlContent = '';
+
+        questions.forEach((q, index) => {
+            // Susun semula pilihan jawapan secara rawak untuk mengelakkan jawapan yang sama diulang
+            const shuffledOptions = shuffleArray([...q.options]);
+
+            htmlContent += `
+                <div class="question-card">
+                    <div class="question-title">${index + 1}. [${q.topic}] ${q.question}</div>
+                    <div class="options">
+            `;
+            
+            shuffledOptions.forEach((option, optionIndex) => {
+                const id = `q${index}_opt${optionIndex}`;
+                htmlContent += `
+                    <label for="${id}">
+                        <input type="radio" id="${id}" name="question${index}" value="${option}">
+                        ${option}
+                    </label>
+                `;
+            });
+
+            htmlContent += `
+                    </div>
+                </div>
+            `;
+        });
+
+        form.innerHTML = htmlContent;
+    }
+
+    // Fungsi untuk menyemak jawapan dan memaparkan skor
+    function submitQuiz() {
+        const form = document.getElementById('quizForm');
+        const resultContainer = document.getElementById('resultContainer');
+        let score = 0;
+        let incorrectAnswers = [];
+
+        questions.forEach((q, index) => {
+            const selectedOption = form.querySelector(`input[name="question${index}"]:checked`);
+            
+            if (selectedOption) {
+                if (selectedOption.value === q.answer) {
+                    score++;
+                } else {
+                    incorrectAnswers.push({
+                        number: index + 1,
+                        question: q.question,
+                        yourAnswer: selectedOption.value,
+                        correctAnswer: q.answer
+                    });
+                }
+            } else {
+                // Tiada jawapan dipilih
+                incorrectAnswers.push({
+                    number: index + 1,
+                    question: q.question,
+                    yourAnswer: "Tiada Jawapan Dipilih",
+                    correctAnswer: q.answer
+                });
+            }
+        });
+
+        // Paparkan hasil
+        const totalQuestions = questions.length;
+        const percentage = (score / totalQuestions) * 100;
+        
+        let resultHtml = `<h2>Keputusan Kuiz Anda</h2>`;
+        resultHtml += `<p>Anda menjawab betul **${score}** daripada **${totalQuestions}** soalan.</p>`;
+        resultHtml += `<p>Skor Anda: **${percentage.toFixed(2)}%**</p>`;
+
+        if (percentage >= 70) {
+            resultContainer.className = 'result pass';
+            resultHtml += `<p>Tahniah! Anda LULUS dengan baik. 🎉</p>`;
+        } else {
+            resultContainer.className = 'result fail';
+            resultHtml += `<p>Cuba lagi. Fokus pada topik yang lemah. 😞</p>`;
+        }
+        
+        // Paparkan jawapan yang salah
+        if (incorrectAnswers.length > 0) {
+            resultHtml += `<h3>Jawapan Yang Salah (${incorrectAnswers.length} Soalan)</h3>`;
+            incorrectAnswers.forEach(item => {
+                resultHtml += `
+                    <div style="text-align: left; margin-top: 15px; border-top: 1px solid #ccc; padding-top: 10px;">
+                        <p><strong>Soalan ${item.number}:</strong> ${item.question}</p>
+                        <p style="color: #721c24;">Jawapan Anda: ${item.yourAnswer}</p>
+                        <p style="color: #155724;">Jawapan Betul: ${item.correctAnswer}</p>
+                    </div>
+                `;
+            });
+        }
+
+        resultContainer.innerHTML = resultHtml;
+        resultContainer.style.display = 'block';
+        window.scrollTo({ top: resultContainer.offsetTop, behavior: 'smooth' });
+    }
+
+    // Fungsi utiliti untuk mengocok array (Fisher-Yates Shuffle)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Panggil fungsi untuk menjana kuiz apabila halaman dimuat
+    window.onload = generateQuiz;
+</script>
+
+</body>
+</html>
